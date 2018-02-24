@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import {
   Table,
   TableBody,
@@ -11,6 +12,22 @@ import {
 class TableExampleSimple extends Component {
   constructor(props) {
     super();
+    this.state = {
+      users: null
+    }
+  }
+
+  componentDidMount () {
+    axios.get(`http://localhost:3006/users/all/`, {
+        headers: {
+          token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhOGE4YjA3MmM5NDQzMTNiOWFjOTBjNCIsImVtYWlsIjoidHJpYW1yaUBnbWFpbC5jb20iLCJpYXQiOjE1MTkwMjkwMDh9.f3-q6nmWncrbXFQj7qV6_87TKdeDfmlqRcIQKZpX0eU`
+        }
+      }).then(({ data }) => {
+        console.log('users ',data);
+        this.setState({
+          users: data.data
+        })
+      }).catch(err => console.log(err))
   }
 
   render () {
@@ -26,20 +43,20 @@ class TableExampleSimple extends Component {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableRowColumn>1</TableRowColumn>
-              <TableRowColumn>454jddsf4336</TableRowColumn>              
-              <TableRowColumn>John Smith</TableRowColumn>
-              <TableRowColumn>jhon@smith.com</TableRowColumn>
-              <TableRowColumn>jalan</TableRowColumn>              
-            </TableRow>
-            <TableRow>
-              <TableRowColumn>2</TableRowColumn>
-              <TableRowColumn>454jddsf4336</TableRowColumn>              
-              <TableRowColumn>John Smith</TableRowColumn>
-              <TableRowColumn>jhon@smith.com</TableRowColumn>
-              <TableRowColumn>jalan</TableRowColumn>              
-            </TableRow>
+            { this.state.users && this.state.users.map((user, idx) => { 
+                  return (
+                    <TableRow key={ idx }>
+                      <TableRowColumn>{ idx+1 }</TableRowColumn>
+                      <TableRowColumn>{ user._id }</TableRowColumn>              
+                      <TableRowColumn>{ user.firstName }</TableRowColumn>
+                      <TableRowColumn>{ user.email }</TableRowColumn>
+                      <TableRowColumn>{ user.address }</TableRowColumn>              
+                    </TableRow>
+                  )
+                }
+              ) 
+            }
+
           </TableBody>
         </Table>
     )
