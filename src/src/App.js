@@ -1,21 +1,60 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import AppBar from 'material-ui/AppBar';
+import Menu from './components/Menu';
+import Home from './components/Home';
+import Users from './components/Users';
+import Aspirations from './components/Aspirations';
+
+const muiTheme = getMuiTheme({
+  palette: {
+    textColor: 'cyan500',
+  },
+  appBar: {
+    height: 50,
+  },
+});
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }  
+
+  handleToggle = () => this.setState({open: !this.state.open});
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <AppBar 
+          title="My AppBar"
+          onClick={this.handleToggle}  
+        />
+        <Router>
+        <div style={styles.root}>
+          <Menu />
+          <Route exact path="/" component={Home}/>
+          <Route path="/users" component={Users} /> 
+          <Route path="/aspirations" component={Aspirations}/>          
+        </div>
+        </Router>
+      </MuiThemeProvider>
     );
   }
 }
+
+const styles = {
+  root: {
+    display: 'flex',
+    justifyContent: 'left',
+    marginTop: 20,
+    marginLeft: 10
+  }
+};
 
 export default App;
