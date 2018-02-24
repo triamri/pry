@@ -1,20 +1,39 @@
 import React from 'react';
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
+
+import AppBar from 'material-ui/AppBar';
+import Badge from 'material-ui/Badge';
+import IconButton from 'material-ui/IconButton';
+import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 
 export default class DrawerSimpleExample extends React.Component {
-
   constructor(props) {
     super(props);
+    this.state = {
+      badge: 0
+    };
   }
+  
+  // componentDidMount() {
+  //   setInterval(() => {
+  //     this.setState({
+  //       badge: this.state.badge + 1
+  //     })
+  //   }, 1000);
+  // }
+
   render() {
     return (
-      <div>
-        <Drawer openSecondary={true} open={this.props.open}>
-          <MenuItem>Menu Item</MenuItem>
-          <MenuItem>Menu Item 2</MenuItem>
-        </Drawer>
-      </div>
+      <AppBar>
+        <Badge
+          badgeContent={this.state.badge}
+          secondary={true}
+          badgeStyle={{top: 12, right: 12}}
+        >
+          <IconButton tooltip="Notifications">
+            <NotificationsIcon />
+          </IconButton>
+        </Badge>
+      </AppBar>
     );
   }
 }
