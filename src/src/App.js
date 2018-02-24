@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import AppBar from 'material-ui/AppBar';
+
+import NavBar from './components/NavBar';
 import Menu from './components/Menu';
 import Home from './components/Home';
 import Users from './components/Users';
@@ -20,21 +21,10 @@ const muiTheme = getMuiTheme({
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }  
-
-  handleToggle = () => this.setState({open: !this.state.open});
-
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <AppBar 
-          title="My AppBar"
-          onClick={this.handleToggle}  
-        />
+        <NavBar />
         <Router>
         <div style={styles.root}>
           <Menu />

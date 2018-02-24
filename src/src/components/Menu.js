@@ -26,7 +26,7 @@ const MenuExampleIcons = () => (
     <Paper style={style.paper}>
       <Menu>
         <Link to="/"><MenuItem primaryText="Home" leftIcon={<RemoveRedEye />} /></Link>
-        <Link to="/users"><MenuItem primaryText="Users" leftIcon={<PersonAdd />} /></Link>
+        <Link to="/users/list"><MenuItem primaryText="Users" leftIcon={<PersonAdd />} /></Link>
         <Link to="/aspirations"><MenuItem primaryText="Aspiration" leftIcon={<ContentLink />} /></Link>
         {/* <Divider />
         <MenuItem primaryText="Make a copy" leftIcon={<ContentCopy />} />

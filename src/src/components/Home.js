@@ -1,6 +1,48 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+
+import { Card } from 'material-ui/Card';
+
+import ReactFC from 'react-fusioncharts';
+import FusionCharts from 'fusioncharts';
+import charts from 'fusioncharts/fusioncharts.charts';
+// import oceanIgnore from'fusioncharts/themes/fusioncharts.theme.ocean';
+
+// Load the charts module pass FusionCharts as dependency
+charts(FusionCharts);
+
+  var myDataSource = {
+      chart: {
+          caption: "Harry's SuperMart",
+          subCaption: "Top 5 stores in last month by revenue",
+          numberPrefix: "$",
+          theme: "ocean"
+      },
+      data: [{
+          label: "Bakersfield Central",
+          value: "880000"
+      }, {
+          label: "Garden Groove harbour",
+          value: "730000"
+      }, {
+          label: "Los Angeles Topanga",
+          value: "590000"
+      }, {
+          label: "Compton-Rancho Dom",
+          value: "520000"
+      }, {
+          label: "Daly City Serramonte",
+          value: "330000"
+      }]
+  };
+
+  var revenueChartConfigs = {
+      id: "revenue-chart",
+      type: "column2d",
+      width: "80%",
+      height: 400,
+      dataFormat: "json",
+      dataSource: myDataSource
+  };
 
 const style = {
   paper: {
@@ -10,21 +52,7 @@ const style = {
 
 const CardExampleWithAvatar = () => (
   <Card style={style.paper}>
-    <CardHeader
-      title="URL Avatar"
-      subtitle="Subtitle"
-    />
-    <CardTitle title="Card title" subtitle="Card subtitle" />
-    <CardText>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-    </CardText>
-    <CardActions>
-      <FlatButton label="Action1" />
-      <FlatButton label="Action2" />
-    </CardActions>
+    <ReactFC {...revenueChartConfigs} />
   </Card>
 );
 
